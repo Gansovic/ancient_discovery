@@ -1,9 +1,6 @@
 package com.lukini.ancient_discovery.item;
 
 import com.lukini.ancient_discovery.AncientDiscovery;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -17,7 +14,7 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, AncientDiscovery.MOD_ID);
 
-    public static final RegistryObject<Item> ALEXANDRITE = registerItem("alexandrite",
+    public static final RegistryObject<Item> ANUBIS_GEM = registerItem("anubis_gem",
             Item::new);
     public static final RegistryObject<Item> RAW_ALEXANDRITE = registerItem("raw_alexandrite",
             Item::new);

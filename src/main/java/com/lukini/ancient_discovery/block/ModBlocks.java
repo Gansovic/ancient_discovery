@@ -1,6 +1,7 @@
 package com.lukini.ancient_discovery.block;
 
 import com.lukini.ancient_discovery.AncientDiscovery;
+import com.lukini.ancient_discovery.block.custom.AncientTableBlock;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -22,9 +23,12 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, AncientDiscovery.MOD_ID);
 
-    public static final RegistryObject<Block> ALEXANDRITE_BLOCK = registerBlock("alexandrite_block",
+    public static final RegistryObject<Block> ANCIENT_SANDSTONE = registerBlock("ancient_sandstone",
             (properties) -> new Block(properties
                     .strength(4f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST)));
+
+    public static final RegistryObject<Block> ANCIENT_TABLE = registerBlock("ancient_table",
+            (properties) -> new AncientTableBlock(properties.noOcclusion()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Function<BlockBehaviour.Properties, T> function) {
         RegistryObject<T> toReturn = BLOCKS.register(name,

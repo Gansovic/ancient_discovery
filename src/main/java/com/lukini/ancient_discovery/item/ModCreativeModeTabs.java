@@ -14,24 +14,24 @@ public class ModCreativeModeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, AncientDiscovery.MOD_ID);
 
-    public static final RegistryObject<CreativeModeTab> ALEXANDRITE_ITEMS_TAB = CREATIVE_MODE_TABS.register("alexanderite_items_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.ALEXANDRITE.get()))
-                    .title(Component.translatable("creativetab.tutorialmod.alexandrite_items"))
+    public static final RegistryObject<CreativeModeTab> ALEXANDRITE_ITEMS_TAB = CREATIVE_MODE_TABS.register("ancient_items_tab",
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.ANUBIS_GEM.get()))
+                    .title(Component.translatable("creativetab.ancient_discovery.ancient_items"))
                     .displayItems((itemDisplayParameters, output) -> {
-                        output.accept(ModItems.ALEXANDRITE.get());
+                        output.accept(ModItems.ANUBIS_GEM.get());
                         output.accept(ModItems.RAW_ALEXANDRITE.get());
 
 
 
                     }).build());
 
-    public static final RegistryObject<CreativeModeTab> ALEXANDRITE_BLOCKS_TAB = CREATIVE_MODE_TABS.register("alexanderite_blocks_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.ALEXANDRITE_BLOCK.get()))
+    public static final RegistryObject<CreativeModeTab> ALEXANDRITE_BLOCKS_TAB = CREATIVE_MODE_TABS.register("ancient_blocks_tab",
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.ANCIENT_SANDSTONE.get()))
                     .withTabsBefore(ALEXANDRITE_ITEMS_TAB.getId())
-                    .title(Component.translatable("creativetab.tutorialmod.alexandrite_blocks"))
+                    .title(Component.translatable("creativetab.ancient_discovery.ancient_blocks"))
                     .displayItems((itemDisplayParameters, output) -> {
-                        output.accept(ModBlocks.ALEXANDRITE_BLOCK.get());
-
+                        output.accept(ModBlocks.ANCIENT_SANDSTONE.get());
+                        output.accept(ModBlocks.ANCIENT_TABLE.get());
 
                     }).build());
 

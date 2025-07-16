@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "ancient_discovery:block/ancient_sandstone_side",
+    "up": "ancient_discovery:block/ancient_sandstone_top",
+    "north": "ancient_discovery:block/ancient_sandstone_side",
+    "south": "ancient_discovery:block/ancient_sandstone_top",
+    "west": "ancient_discovery:block/ancient_sandstone_side",
+    "east": "ancient_discovery:block/ancient_sandstone_side"
+  }
+}

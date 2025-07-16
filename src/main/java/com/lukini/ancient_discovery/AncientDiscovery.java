@@ -1,10 +1,16 @@
 package com.lukini.ancient_discovery;
 
 import com.lukini.ancient_discovery.block.ModBlocks;
+import com.lukini.ancient_discovery.block.entity.ModBlockEntities;
+import com.lukini.ancient_discovery.block.entity.renderer.AncientTableBlockEntityRenderer;
 import com.lukini.ancient_discovery.item.ModCreativeModeTabs;
 import com.lukini.ancient_discovery.item.ModItems;
+import com.lukini.ancient_discovery.screen.ModMenuTypes;
+import com.lukini.ancient_discovery.screen.custom.AncientTableScreen;
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -52,9 +58,9 @@ public class AncientDiscovery
         //ModParticles.register(modEventBus);
 
         //ModLootModifiers.register(modEventBus);
-        //ModBlockEntities.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
 
-        //ModMenuTypes.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
         //ModRecipes.register(modEventBus);
 
         // Register the item to a creative tab
@@ -85,6 +91,12 @@ public class AncientDiscovery
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
+            MenuScreens.register(ModMenuTypes.ANCIENT_TABLE_MENU.get(), AncientTableScreen::new);
+        }
+
+        @SubscribeEvent
+        public static void registerBER(EntityRenderersEvent.RegisterRenderers event) {
+            event.registerBlockEntityRenderer(ModBlockEntities.ANCIENT_TABLE_BE.get(), AncientTableBlockEntityRenderer::new);
         }
     }
 }
