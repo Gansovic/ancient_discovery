@@ -1,6 +1,7 @@
 package com.lukini.ancient_discovery.item;
 
 import com.lukini.ancient_discovery.AncientDiscovery;
+import com.lukini.ancient_discovery.item.custom.AnubisWandItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -16,8 +17,8 @@ public class ModItems {
 
     public static final RegistryObject<Item> ANUBIS_GEM = registerItem("anubis_gem",
             Item::new);
-    public static final RegistryObject<Item> RAW_ALEXANDRITE = registerItem("raw_alexandrite",
-            Item::new);
+    public static final RegistryObject<Item> ANUBIS_WAND = ITEMS.register("anubis_wand",
+            () -> new AnubisWandItem(new Item.Properties().stacksTo(1)));
 
     public static RegistryObject<Item> registerItem(String name, Function<Item.Properties, Item> function) {
         return ModItems.ITEMS.register(name, () -> function.apply(new Item.Properties()));

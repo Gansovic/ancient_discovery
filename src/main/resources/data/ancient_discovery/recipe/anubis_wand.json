@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:stick"
+    },
+    "B": {
+      "item": "ancient_discovery:anubis_gem"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "ABA",
+    " A "
+  ],
+  "result": {
+    "count": "1,",
+    "id": "ancient_discovery:anubis_wand"
+  }
+}

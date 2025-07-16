@@ -19,7 +19,7 @@ public class ModCreativeModeTabs {
                     .title(Component.translatable("creativetab.ancient_discovery.ancient_items"))
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(ModItems.ANUBIS_GEM.get());
-                        output.accept(ModItems.RAW_ALEXANDRITE.get());
+                        output.accept(ModItems.ANUBIS_WAND.get());
 
 
 
