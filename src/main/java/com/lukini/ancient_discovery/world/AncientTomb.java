@@ -14,7 +14,6 @@ import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 
 public class AncientTomb {
 
@@ -40,16 +39,11 @@ public class AncientTomb {
 
         // Entrega de recompensas
         lastPos = basePos;
-        rewardPlayer(player, basePos, world);
-    }
-
-    public static BlockPos getLastTomb(Level level) {
-        // retorna la última posición guardada de la tumba para este mundo
-        return lastPos;
+        rewardPlayer(player, basePos);
     }
 
 
-    public static void rewardPlayer(ServerPlayer player, BlockPos tombPos, Level world) {
+    public static void rewardPlayer(ServerPlayer player, BlockPos tombPos) {
         player.getInventory().add(new ItemStack(Items.DIAMOND));
 
         ItemStack map = createAncientMap(player.level(), tombPos);

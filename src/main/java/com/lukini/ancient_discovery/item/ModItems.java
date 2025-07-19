@@ -6,15 +6,11 @@ import com.lukini.ancient_discovery.item.custom.AncientRelic;
 import com.lukini.ancient_discovery.item.custom.AnubisWandItem;
 import com.lukini.ancient_discovery.item.custom.RaWandItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.BambooStalkBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.awt.print.Paper;
 import java.util.function.Function;
 
 public class ModItems {
