@@ -28,8 +28,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
-import java.util.Optional;
 
 public class AncientTableBlockEntity extends BlockEntity implements MenuProvider {
 
@@ -42,6 +40,7 @@ public class AncientTableBlockEntity extends BlockEntity implements MenuProvider
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
+            assert level != null;
             if (!level.isClientSide()) {
                 if (slot == 0) {
                     tryGainKnowledge();
@@ -84,12 +83,10 @@ public class AncientTableBlockEntity extends BlockEntity implements MenuProvider
 
         if (input.isEmpty()) return;
 
-        Player player = nearest;
-
         // Por ahora, cada papiro da 5 de conocimiento
         if (input.is(ForgeRegistries.ITEMS.getValue(ResourceLocation.tryParse("ancient_discovery:papyrus")))) {
             int gained = 5;
-            knowledgeCap.addKnowledge(gained, (ServerPlayer) player);
+            knowledgeCap.addKnowledge(gained, (ServerPlayer) nearest);
             inventory.setStackInSlot(0, ItemStack.EMPTY);
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
 
@@ -125,17 +122,18 @@ public class AncientTableBlockEntity extends BlockEntity implements MenuProvider
             inv.setItem(i, inventory.getStackInSlot(i));
         }
 
+        assert this.level != null;
         Containers.dropContents(this.level, this.worldPosition, inv);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+    protected void saveAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
         super.saveAdditional(pTag, pRegistries);
         pTag.put("inventory", inventory.serializeNBT(pRegistries));
     }
 
     @Override
-    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+    protected void loadAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
         super.loadAdditional(pTag, pRegistries);
         inventory.deserializeNBT(pRegistries, pTag.getCompound("inventory"));
     }
@@ -149,18 +147,18 @@ public class AncientTableBlockEntity extends BlockEntity implements MenuProvider
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
+    public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider pRegistries) {
         return saveWithoutMetadata(pRegistries);
     }
 
 
     @Override
-    public Component getDisplayName() {
+    public @NotNull Component getDisplayName() {
         return Component.literal("Ancient Table");
     }
 
     @Override
-    public @Nullable AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
+    public @Nullable AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pPlayerInventory, @NotNull Player pPlayer) {
         return new AncientTableMenu(pContainerId, pPlayerInventory, this);
     }
 }
