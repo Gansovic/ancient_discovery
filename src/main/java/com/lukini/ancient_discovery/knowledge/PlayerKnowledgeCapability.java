@@ -28,16 +28,7 @@ public class PlayerKnowledgeCapability {
     }
 
 
-    public void setTutankamonTombPos(BlockPos pos) {
-        this.tutankamonTombPos = pos;
-    }
-
-    public BlockPos getTutankamonTombPos() {
-        return tutankamonTombPos;
-    }
-
-
-    public void addKnowledge(int amount, ServerPlayer player) {
+    public void addKnowledge(int amount) {
         this.knowledge += amount;
         // No milestone triggered here – handled on item input like AncientRelic
     }
@@ -56,7 +47,7 @@ public class PlayerKnowledgeCapability {
             currentMilestone = 1;
             player.sendSystemMessage(Component.literal("§6[Milestone]§r Has alcanzado el §dMilestone de Tutankamón§r. El Ancient Table brilla misteriosamente..."));
             lightTable(player);
-            AncientTomb.spawnTutankamonTomb(player, world);
+            AncientTomb.spawnTutankamonTomb(player);
             player.getInventory().add(Items.DIAMOND.getDefaultInstance());
         }
     }
@@ -84,28 +75,9 @@ public class PlayerKnowledgeCapability {
         // Aquí podrías agregar partículas si lo deseas
     }
 
-    public void setKnowledge(int knowledge) {
-        this.knowledge = knowledge;
-    }
 
     public int getCurrentMilestone() {
         return currentMilestone;
-    }
-
-    public void advanceMilestone() {
-        currentMilestone++;
-    }
-
-    public void setCurrentMilestone(int milestone) {
-        this.currentMilestone = milestone;
-    }
-
-    public boolean hasAcceptedTutankamonCurse() {
-        return acceptedTutankamonCurse;
-    }
-
-    public void acceptTutankamonCurse() {
-        this.acceptedTutankamonCurse = true;
     }
 
     public CompoundTag serializeNBT() {

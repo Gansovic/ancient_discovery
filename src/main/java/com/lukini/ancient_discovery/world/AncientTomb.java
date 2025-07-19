@@ -19,7 +19,7 @@ public class AncientTomb {
 
     static BlockPos lastPos;
 
-    public static void spawnTutankamonTomb(ServerPlayer player, Level world) {
+    public static void spawnTutankamonTomb(ServerPlayer player) {
         ServerLevel level = player.serverLevel();
         BlockPos basePos = player.blockPosition().offset(5, 0, 5);
 

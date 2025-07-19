@@ -86,7 +86,7 @@ public class AncientTableBlockEntity extends BlockEntity implements MenuProvider
         // Por ahora, cada papiro da 5 de conocimiento
         if (input.is(ForgeRegistries.ITEMS.getValue(ResourceLocation.tryParse("ancient_discovery:papyrus")))) {
             int gained = 5;
-            knowledgeCap.addKnowledge(gained, (ServerPlayer) nearest);
+            knowledgeCap.addKnowledge(gained);
             inventory.setStackInSlot(0, ItemStack.EMPTY);
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
 
