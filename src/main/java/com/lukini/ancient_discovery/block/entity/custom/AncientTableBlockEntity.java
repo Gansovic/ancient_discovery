@@ -1,6 +1,7 @@
 package com.lukini.ancient_discovery.block.entity.custom;
 
 import com.lukini.ancient_discovery.block.entity.ModBlockEntities;
+import com.lukini.ancient_discovery.knowledge.PlayerKnowledgeCapability;
 import com.lukini.ancient_discovery.screen.custom.AncientTableMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -9,6 +10,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -19,12 +22,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+import java.util.Optional;
+
 public class AncientTableBlockEntity extends BlockEntity implements MenuProvider {
 
-    public final ItemStackHandler inventory = new ItemStackHandler(1) {
+    public final ItemStackHandler inventory = new ItemStackHandler(4) {
         @Override
         protected int getStackLimit(int slot, @NotNull ItemStack stack) {
             return 1;
@@ -33,12 +40,40 @@ public class AncientTableBlockEntity extends BlockEntity implements MenuProvider
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
-            if(!level.isClientSide()) {
+            if (!level.isClientSide()) {
+                if (slot == 0) {
+                    tryGainKnowledge();
+                }
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
             }
         }
     };
     private float rotation;
+
+    private void tryGainKnowledge() {
+        if (!(level instanceof ServerLevel serverLevel)) return;
+        Player nearest = serverLevel.getNearestPlayer(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), 5, false);
+        if (nearest == null) return;
+
+        PlayerKnowledgeCapability knowledgeCap = PlayerKnowledgeCapability.get(nearest);
+        ItemStack input = inventory.getStackInSlot(0);
+
+        if (input.isEmpty()) return;
+
+        // Por ahora, cada papiro da 5 de conocimiento
+        if (input.is(ForgeRegistries.ITEMS.getValue(ResourceLocation.tryParse("ancient_discovery:papyrus")))) {
+            int gained = 5;
+            knowledgeCap.addKnowledge(gained);
+            inventory.setStackInSlot(0, ItemStack.EMPTY);
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+
+            nearest.displayClientMessage(Component.literal(
+                    "§6[Ancient Table]§r Ganaste §b" + gained + "§r de conocimiento por entregar §e" +
+                            input.getHoverName().getString() + "§r. Total: §a" + knowledgeCap.getKnowledge() +
+                            "§r. Milestone: §d" + knowledgeCap.getCurrentMilestone()
+            ), false);
+        }
+    }
 
 
     public AncientTableBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -78,6 +113,7 @@ public class AncientTableBlockEntity extends BlockEntity implements MenuProvider
         super.loadAdditional(pTag, pRegistries);
         inventory.deserializeNBT(pRegistries, pTag.getCompound("inventory"));
     }
+
 
 
     @Nullable

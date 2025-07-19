@@ -21,6 +21,9 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.ANUBIS_GEM.get());
                         output.accept(ModItems.ANUBIS_WAND.get());
 
+                        output.accept(ModItems.RA_GEM.get());
+                        output.accept(ModItems.RA_WAND.get());
+
 
 
                     }).build());
@@ -32,6 +35,7 @@ public class ModCreativeModeTabs {
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(ModBlocks.ANCIENT_SANDSTONE.get());
                         output.accept(ModBlocks.ANCIENT_TABLE.get());
+                        output.accept(ModItems.PAPYRUS.get());
 
                     }).build());
 

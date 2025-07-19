@@ -30,7 +30,11 @@ public class AncientTableMenu extends AbstractContainerMenu {
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, 0, 80, 35));
+        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, 0, 44, 35));  // InputSlot (Papyrus)
+        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, 1, 62, 17));  // RelicSlot (AncientRelic)
+        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, 2, 116, 35)); // AwardSlot (AncientMap)
+        this.addSlot(new SlotItemHandler(this.blockEntity.inventory, 3, 134, 17)); // AmuletSlot
+
     }
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
@@ -49,7 +53,7 @@ public class AncientTableMenu extends AbstractContainerMenu {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 1;  // must be the number of slots you have!
+    private static final int TE_INVENTORY_SLOT_COUNT = 4;  // must be the number of slots you have!
     @Override
     public ItemStack quickMoveStack(Player playerIn, int pIndex) {
         Slot sourceSlot = slots.get(pIndex);
