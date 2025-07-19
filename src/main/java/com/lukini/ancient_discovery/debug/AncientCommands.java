@@ -14,7 +14,7 @@ public class AncientCommands {
                 .executes(context -> {
                     ServerPlayer player = context.getSource().getPlayerOrException();
                     PlayerKnowledgeCapability cap = PlayerKnowledgeCapability.get(player);
-                    cap.resetKnowledgeMilestone(player);
+                    cap.resetKnowledgeMilestone();
                     player.sendSystemMessage(Component.literal("§c[Ancient Table] Progreso reiniciado."));
                     return 1;
                 });

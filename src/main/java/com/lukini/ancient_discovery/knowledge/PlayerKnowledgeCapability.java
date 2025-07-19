@@ -33,12 +33,12 @@ public class PlayerKnowledgeCapability {
         // No milestone triggered here – handled on item input like AncientRelic
     }
 
-    public void resetKnowledgeMilestone(ServerPlayer player) {
+    public void resetKnowledgeMilestone() {
         this.currentMilestone = 0;
         this.knowledge = 0;
     }
 
-    public void tryTriggerMilestone(ServerPlayer player, Level world, String relicId) {
+    public void tryTriggerMilestone(ServerPlayer player, String relicId) {
         player.sendSystemMessage(Component.literal("DEBUG: Reliquia = " + relicId));
         player.sendSystemMessage(Component.literal("DEBUG: Knowledge = " + knowledge));
         player.sendSystemMessage(Component.literal("DEBUG: Milestone = " + currentMilestone));
@@ -52,21 +52,6 @@ public class PlayerKnowledgeCapability {
         }
     }
 
-
-    private void generateTomb(ServerPlayer player) {
-        ServerLevel level = player.serverLevel();
-        BlockPos basePos = player.blockPosition().offset(5, 0, 5);
-
-        for (int y = 0; y < 4; y++) {
-            for (int x = -2; x <= 2; x++) {
-                for (int z = -2; z <= 2; z++) {
-                    BlockPos pos = basePos.offset(x, y, z);
-                    BlockState state = y == 3 ? Blocks.SANDSTONE.defaultBlockState() : Blocks.SAND.defaultBlockState();
-                    level.setBlockAndUpdate(pos, state);
-                }
-            }
-        }
-    }
 
     private void lightTable(ServerPlayer player) {
         ServerLevel level = player.serverLevel();
