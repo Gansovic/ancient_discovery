@@ -70,7 +70,7 @@ public class AncientTableBlockEntity extends BlockEntity implements MenuProvider
 
 
         PlayerKnowledgeCapability cap = PlayerKnowledgeCapability.get(serverPlayer);
-        cap.tryTriggerMilestone(serverPlayer, world, id.toString());
+        cap.tryTriggerMilestone(serverPlayer, id.toString());
     }
 
     private void tryGainKnowledge() {
