@@ -66,9 +66,6 @@ public class AncientTableBlockEntity extends BlockEntity implements MenuProvider
         ResourceLocation id = ForgeRegistries.ITEMS.getKey(relicStack.getItem());
         if (id == null) return;
 
-        Level world = serverLevel.getLevel();
-
-
         PlayerKnowledgeCapability cap = PlayerKnowledgeCapability.get(serverPlayer);
         cap.tryTriggerMilestone(serverPlayer, id.toString());
     }
