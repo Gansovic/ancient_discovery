@@ -1,6 +1,8 @@
 package com.lukini.ancient_discovery.item;
 
 import com.lukini.ancient_discovery.AncientDiscovery;
+import com.lukini.ancient_discovery.item.custom.AncientMap;
+import com.lukini.ancient_discovery.item.custom.AncientRelic;
 import com.lukini.ancient_discovery.item.custom.AnubisWandItem;
 import com.lukini.ancient_discovery.item.custom.RaWandItem;
 import net.minecraft.world.item.Item;
@@ -21,9 +23,12 @@ public class ModItems {
             DeferredRegister.create(ForgeRegistries.ITEMS, AncientDiscovery.MOD_ID);
 
     public static final RegistryObject<Item> ANUBIS_GEM = registerItem("anubis_gem",
-            Item::new);
+            AncientRelic::new);
     public static final RegistryObject<Item> ANUBIS_WAND = registerItem("anubis_wand",
             (properties) -> new AnubisWandItem(new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> ANCIENT_MAP = ITEMS.register("ancient_map",
+            () -> new AncientMap(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> RA_GEM = registerItem("ra_gem",
             Item::new);

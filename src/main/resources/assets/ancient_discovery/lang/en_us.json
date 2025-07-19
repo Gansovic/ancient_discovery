@@ -4,6 +4,9 @@
   "block.ancient_discovery.ancient_table": "Ancient Table",
 
   "item.ancient_discovery.anubis_gem": "Gem of Anubis",
+  "item.ancient_discovery.ancient_map": "Ancient Map",
+  "item.ancient_discovery.anubis_wand": "Wand of Anubis",
+  "item.ancient_discovery.papyrus": "Papyrus",
 
   "creativetab.ancient_discovery.ancient_items": "Ancient Items",
   "creativetab.ancient_discovery.ancient_blocks": "Ancient Blocks"

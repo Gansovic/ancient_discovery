@@ -12,6 +12,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemStackHandler;
@@ -44,11 +46,33 @@ public class AncientTableBlockEntity extends BlockEntity implements MenuProvider
                 if (slot == 0) {
                     tryGainKnowledge();
                 }
+                if (slot == 1) {
+                    tryTriggerMilestoneIfApplicable();
+                }
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
             }
         }
     };
     private float rotation;
+
+
+    private void tryTriggerMilestoneIfApplicable() {
+        if (!(level instanceof ServerLevel serverLevel)) return;
+        Player nearest = serverLevel.getNearestPlayer(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), 5, false);
+        if (!(nearest instanceof ServerPlayer serverPlayer)) return;
+
+        ItemStack relicStack = inventory.getStackInSlot(1); // slot de reliquias
+        if (relicStack.isEmpty()) return;
+
+        ResourceLocation id = ForgeRegistries.ITEMS.getKey(relicStack.getItem());
+        if (id == null) return;
+
+        Level world = serverLevel.getLevel();
+
+
+        PlayerKnowledgeCapability cap = PlayerKnowledgeCapability.get(serverPlayer);
+        cap.tryTriggerMilestone(serverPlayer, world, id.toString());
+    }
 
     private void tryGainKnowledge() {
         if (!(level instanceof ServerLevel serverLevel)) return;
@@ -60,10 +84,12 @@ public class AncientTableBlockEntity extends BlockEntity implements MenuProvider
 
         if (input.isEmpty()) return;
 
+        Player player = nearest;
+
         // Por ahora, cada papiro da 5 de conocimiento
         if (input.is(ForgeRegistries.ITEMS.getValue(ResourceLocation.tryParse("ancient_discovery:papyrus")))) {
             int gained = 5;
-            knowledgeCap.addKnowledge(gained);
+            knowledgeCap.addKnowledge(gained, (ServerPlayer) player);
             inventory.setStackInSlot(0, ItemStack.EMPTY);
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
 
